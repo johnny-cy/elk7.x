@@ -6,8 +6,8 @@ services:
     image: docker.elastic.co/logstash/logstash:7.6.2
     container_name: logstash
     hostname: logstash
-    #volumes:
-    #  - ./pipeline/:/usr/share/logstash/pipeline/
+    volumes:
+      - ./pipeline/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
     networks:
       - elk
 
