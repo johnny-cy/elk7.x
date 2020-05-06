@@ -11,9 +11,9 @@ services:
       - "9300:9300"
     environment:
       discovery.type: "single-node"
-      #bootstrap.memory_lock: "true" # 因swarm不支援ulimit故單設定這個也沒用
+      bootstrap.memory_lock: "true"
       ES_JAVA_OPTS: "-Xms512m -Xmx512m"
-    #ulimit:# swarm 不支援ulimit
+      #ulimits:
       #memlock:
       #  soft: -1
       #  hard: -1
@@ -36,6 +36,6 @@ networks:
 x-settings:
   deploy:
     stack_name: elasticsearch
-    enable: true
+    enable: false
     priority: "100"
   

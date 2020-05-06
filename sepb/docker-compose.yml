@@ -5,3 +5,7 @@ elk:
     - "9200:9200"
     - "5044:5044"
 
+x-settings:
+  deploy:
+    enable: false
+    priority: "000"

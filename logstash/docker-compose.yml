@@ -1,6 +1,6 @@
 #docker run --rm -it -v ~/pipeline/:/usr/share/logstash/pipeline/ docker.elastic.co/logstash/logstash:7.6.2
 #
-version: '3'
+version: '3.7'
 services:
   logstash:
     image: docker.elastic.co/logstash/logstash:7.6.2
@@ -8,6 +8,7 @@ services:
     hostname: logstash
     volumes:
       - ./pipeline/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+      - /var/log/rsyslog.log:/tmp/rsyslog.log
     networks:
       - elk
 
@@ -17,5 +18,12 @@ volumes:
 
 networks:
   elk:
+    name: elk
     external: true
+
+x-settings:
+  deploy:
+    stack_name: logstash
+    enable: true
+    priority: "300"
 
