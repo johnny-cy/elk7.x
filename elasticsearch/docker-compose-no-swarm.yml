@@ -21,7 +21,7 @@ services:
       - es_data:/usr/share/elasticsearch/data
       - ./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
     networks:
-      - elk
+      - elk_local
 
 volumes:
   es_data:
@@ -29,7 +29,7 @@ volumes:
 
 networks:
   elk:
-    name: elk
+    name: elk_local
     driver: overlay
     attachable: true
 
