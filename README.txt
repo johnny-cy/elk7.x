@@ -1,4 +1,4 @@
-#### ./docker-util start will start ELK stacksby default, excluding sebp/elk
+#### ./docker-util start will start ELK stacks by default, excluding sebp/elk
 # 
 
 # install docker
