@@ -4,6 +4,8 @@ version: '3.7'
 services:
   logstash:
     image: docker.elastic.co/logstash/logstash:7.6.2
+    build:
+      context: .
     container_name: logstash
     hostname: logstash
     volumes:
@@ -25,4 +27,6 @@ x-settings:
     stack_name: logstash
     enable: true
     priority: "300"
+  build:
+    enable: true
 

@@ -4,6 +4,8 @@ version: '3.7'
 services:
   kibaba:
     image: docker.elastic.co/kibana/kibana:7.6.2
+    build:
+      context: .
     container_name: kibana
     hostname: kibana
     ports:
@@ -24,4 +26,5 @@ x-settings:
     stack_name: kibana
     enable: true
     priority: "200"
-
+  build:
+    enable: true

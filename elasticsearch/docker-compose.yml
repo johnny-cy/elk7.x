@@ -4,6 +4,8 @@ version: '3.7'
 services:
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.6.2
+    build:
+      context: .
     container_name: elasticsearch
     hostname: elasticsearch
     ports:
@@ -38,4 +40,5 @@ x-settings:
     stack_name: elasticsearch
     enable: true
     priority: "100"
-  
+  build:
+    enable: true

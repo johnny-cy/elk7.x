@@ -2,10 +2,9 @@
 
 
 
-
 usage() {
     echo "Usage:"
-    #echo "$0 build [service]  - build docker images"
+    echo "$0 build [service]  - build docker images"
     echo "$0 start            - start services defined in docker-util.conf"
     echo "$0 stop             - stop all services"
     #echo "$0 clean-network    - remove networks with name epa-*"
@@ -26,6 +25,18 @@ _get_enabled_stack() {
     done | sort -n $@
 }
 
+build_images() {
+  compose_files=$(find . -name docker-compose.yml)
+  for f in $compose_files
+  do
+      enabled=$(yq read $f x-settings.build.enable)
+      if $enabled
+      then 
+          sudo docker-compose -f $f build
+      fi
+  done
+  
+}
 
 start_services() {
     DEPLOY=${1:-"staging"}
@@ -47,7 +58,7 @@ start_services() {
             #dev_file="$d/$f.override.yml"
             #docker stack deploy -c $compose_file -c $dev_file $stack_name
         else
-            docker stack deploy -c $compose_file $stack_name && echo "...ok"
+            sudo docker stack deploy -c $compose_file $stack_name && echo "...ok"
         fi
         echo
     done
@@ -66,7 +77,7 @@ stop_services() {
         compose_file=$(echo $line | cut -f 2 -d ":")
         stack_name=$(yq read $compose_file x-settings.deploy.stack_name)
         echo "Stoping ${stack_name}"
-        docker stack rm $stack_name && echo "...ok"
+        sudo docker stack rm $stack_name && echo "...ok"
         echo
     done
 }
@@ -77,11 +88,11 @@ stop_services() {
 key="$1"
 
 case $key in
-#build)
-#    shift
-#    build_docker_image $@
-#    exit
-#    ;;
+build)
+    shift
+    build_images $@
+    exit
+    ;;
 start)
     shift
     start_services $@

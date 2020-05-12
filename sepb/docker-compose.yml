@@ -9,3 +9,5 @@ x-settings:
   deploy:
     enable: false
     priority: "000"
+  build:
+    enable: false
